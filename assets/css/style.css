@@ -1,5 +1,10 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+
+body {
+    font-family: 'Lato', serif;
+}
 #loading {
     display: block;
     position: fixed;
@@ -39,7 +44,7 @@
     padding: 5px;
     margin: 5px 10px;
     display: flex;
-    align-item: center;
+    align-items: center;
     background: inherit;
     justify-content: space-between;
   }
