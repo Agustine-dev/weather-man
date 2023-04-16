@@ -1,1 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather | Time</title>
+</head>
+<body>
 
+    <div class="container w-100 h-auto me-auto">
+  <div class="bg-transparent text-start border-none br-4 header">
+    <form>
+      <input type="text" id="search-input" value="" required autofocus placeholder="Enter Location Name" />
+      <button id="search-btn" class="btn btn-outline-success">Search</button>
+    </form>
+  </div>
+  <div class="row" id="current">
+    <div class="col-md-6 mb-4">
+      <div class="card bg-success">
+        <div class="ccard-body card-body">
+          <h5 class="card-title">You're Timezone</h5>
+          <p class="card-text text-center" id="timezone"></p>
+          <select id="timezone-select" class="d-none"></select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card bg-success">
+        <div class="ccard-body card-body">
+          <h5 class="card-title">You're Current Time</h5>
+          <p class="card-text text-center" id="time"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-inherit fw-bolder text-center text-lg-center" id="weather"></div>
+
+  <div class="bg-inherit main fw-semi-bold text-center fs-10" id="whistory">
+    <div class="row" id="history-row">
+      <!-- Cards will be added here -->
+    </div>
+  </div>
+  <div class="bg-inherit video-content" id="history">
+  </div>
+  <video autoplay muted loop id="video-background">
+    <source src="https://player.vimeo.com/external/368208181.sd.mp4?s=eee5a62a8c5354795bc6cd922b840835b8944300&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+  </video>
+  <div class="container">
+    <h1 class="text-center fs-3 text-light" id="hhead">Hourly Data</h1>
+    <div class="bg-transparent fs-10" id="hourly">
+    </div>
+  </div>
+
+  <div class="container bg-light m-3">
+    <div class="articles" id="article">
+      <h1 class="text-dark text-center fs-3">Featured Articles</h1>
+    </div>
+  </div>
+</div><div class="container w-100 h-auto me-auto">
+  <div class="bg-transparent text-start border-none br-4 header">
+    <form>
+      <input type="text" id="search-input" value="" required autofocus placeholder="Enter Location Name" />
+      <button id="search-btn" class="btn btn-outline-success">Search</button>
+    </form>
+  </div>
+  <div class="row" id="current">
+    <div class="col-md-6 mb-4">
+      <div class="card bg-success">
+        <div class="ccard-body card-body">
+          <h5 class="card-title">You're Timezone</h5>
+          <p class="card-text text-center" id="timezone"></p>
+          <select id="timezone-select" class="d-none"></select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card bg-success">
+        <div class="ccard-body card-body">
+          <h5 class="card-title">You're Current Time</h5>
+          <p class="card-text text-center" id="time"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-inherit fw-bolder text-center text-lg-center" id="weather"></div>
+
+  <div class="bg-inherit main fw-semi-bold text-center fs-10" id="whistory">
+    <div class="row" id="history-row">
+      <!-- Cards will be added here -->
+    </div>
+  </div>
+  <div class="bg-inherit video-content" id="history">
+  </div>
+  <video autoplay muted loop id="video-background">
+    <source src="https://player.vimeo.com/external/368208181.sd.mp4?s=eee5a62a8c5354795bc6cd922b840835b8944300&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+  </video>
+  <div class="container">
+    <h1 class="text-center fs-3 text-light" id="hhead">Hourly Data</h1>
+    <div class="bg-transparent fs-10" id="hourly">
+    </div>
+  </div>
+
+  <div class="container bg-light m-3">
+    <div class="articles" id="article">
+      <h1 class="text-dark text-center fs-3">Featured Articles</h1>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/js/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+</body>
+</html>
