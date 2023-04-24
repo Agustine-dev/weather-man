@@ -212,3 +212,22 @@ a {
   padding: 3px;
   border-radius: 300px;
 }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .social-links a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: blue;
+    transition: color 1.2s ease-in-out;
+  }
+  
+  .social-links a:hover {
+    color:#b9332e ; /* */
+    font-size: 72px;
+  }
+  
