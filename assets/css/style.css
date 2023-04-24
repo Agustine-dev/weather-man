@@ -1,197 +1,214 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
-
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 
 body {
-    font-family: 'Lato', serif;
+  font-family: "Lato", serif;
 }
 #loading {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.8);
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#loading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 6em;
+  height: 6em;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db;
+  animation: spin 0.3s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
   }
-  
-  #loading::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    width: 6em;
-    height: 6em;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-top-color: #3498db;
-    animation: spin 0.3s ease-in-out infinite;
+  100% {
+    transform: rotate(240deg);
   }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(240deg);
-    }
-  }
-  
-  form {
-    padding: 5px;
-    margin: 5px 10px;
-    display: flex;
-    align-items: center;
-    background: inherit;
-    justify-content: space-between;
-  }
-  
-  #header {
-    width: 100%;
-    margin: 10px;
-    border-radius: 33px;
-  }
-  
-  #weather {
-    display: contents;
-    align-items: center;
-    justify-content: space-around;
-    border: aliceblue 2px outset;
-    border-radius: 25px;
-    color: brown;
-  }
-  
-  #hourly {
-    display: flex;
-    overflow-x: auto;
-    margin-top: 20px;
-  }
-  
-  .hour-card {
-    background-color: purple;
-    width: max-content;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-right: 10px;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .hour-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-title {
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .rounded {
-    padding: 0.2rem;
-    width: 60px;
-    height: auto;
-  }
-  
-  .card-text {
-    font-size: 0.9rem;
-    margin-top: 5px;
-  }
-  
-  .iconh {
-    width: 50% !important;
-    margin: 0;
-    padding: 33px;
-    background-color: transparent;
-    color: ghostwhite;
-  }
-  
-  .lisht {
-    width: 50%important;
-    margin: 0;
-    padding: 33px;
-    background: transparent;
-  }
-  
-  #video-background {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    z-index: -1;
-  }
-  .video-content {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
+}
+
+form {
+  padding: 5px;
+  margin: 5px 10px;
+  display: flex;
+  align-items: center;
+  background: inherit;
+  justify-content: space-between;
+}
+
+#header {
+  width: 100%;
+  margin: 10px;
+  border-radius: 33px;
+}
+
+#weather {
+  display: contents;
+  align-items: center;
+  justify-content: space-around;
+  border: aliceblue 2px outset;
+  border-radius: 25px;
+  color: brown;
+}
+
+#hourly {
+  display: flex;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.hour-card {
+  background-color: purple;
+  width: max-content;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.hour-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.rounded {
+  padding: 0.2rem;
+  width: 60px;
+  height: auto;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.iconh {
+  width: 50% !important;
+  margin: 0;
+  padding: 33px;
+  background-color: transparent;
+  color: ghostwhite;
+}
+
+.lisht {
+  width: 50%important;
+  margin: 0;
+  padding: 33px;
+  background: transparent;
+}
+
+#video-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+.video-content {
+  position: relative;
+  z-index: 1;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex-basis: calc(50% - 1rem);
+}
+
+.card.more-details {
+  height: auto;
+}
+
+@media (max-width: 767px) {
   .card {
-    flex-basis: calc(50% - 1rem);
+    flex-basis: 100%;
   }
-  
-  .card.more-details {
-    height: auto;
-  }
-  
-  @media (max-width: 767px) {
-    .card {
-      flex-basis: 100%;
-    }
-  }
-  
-  #weather.card {
-    border-radius: 33px 0;
-    margin: 5px;
-  }
-  
-  li {
-    text-decoration: overline 2px teal;
-  }
-  
-  .ccard-body {
-    height: 100px;
-    color: white;
-  }
-  
-  .ccard-body:hover {
-    background: blue;
-  }
-  
-  .bg-warning {
-    background-color: transparent;
-  }
-  
-  .lisht {
-    text-decoration: white 2.4px overline;
-  }
-  
-  #lisht p:hover {
-    background: antiquewhite;
-    cursor: pointer;
-    color: black;
-    padding: 5px;
-    font-size: xx-large;
-    transition: all 1.2s ease-out;
-  }
-  .iconh p:hover {
-    background: antiquewhite;
-    cursor: pointer;
-    color: black;
-    padding: 5px;
-    font-size: xx-large;
-    transition: all 1.2s ease-out;
-  }
-  
-  #hhead {
-    visibility: hidden;
-  }
-  
+}
+
+#weather.card {
+  border-radius: 33px 0;
+  margin: 5px;
+}
+
+li {
+  text-decoration: overline 2px teal;
+}
+
+.ccard-body {
+  height: 100px;
+  color: white;
+}
+
+.ccard-body:hover {
+  background: blue;
+}
+
+.bg-warning {
+  background-color: transparent;
+}
+
+.lisht {
+  text-decoration: white 2.4px overline;
+}
+
+#lisht p:hover {
+  background: antiquewhite;
+  cursor: pointer;
+  color: black;
+  padding: 5px;
+  font-size: xx-large;
+  transition: all 1.2s ease-out;
+}
+.iconh p:hover {
+  background: antiquewhite;
+  cursor: pointer;
+  color: black;
+  padding: 5px;
+  font-size: xx-large;
+  transition: all 1.2s ease-out;
+}
+
+#hhead {
+  visibility: hidden;
+}
+.card {
+  background-color: transparent;
+}
+.card:hover {
+  background-color: crimson;
+  color: snow;
+  border: none;
+  transition: all 0.67s ease-in;
+}
+.card-body,
+a {
+  text-decoration: none;
+  text-decoration-color: inherit;
+}
+
+.card-img {
+  padding: 3px;
+  border-radius: 300px;
+}

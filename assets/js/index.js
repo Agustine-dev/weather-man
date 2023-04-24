@@ -229,4 +229,87 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     })
     .catch((error) => console.error(error));
-  
+
+
+// Get user IP address
+function getUserIPAddress() {
+  return fetch("https://api.ipify.org/?format=json")
+    .then((response) => response.json())
+    .then((data) => data.ip)
+    .catch((error) => console.error(error));
+}
+
+// Call the function to get the user's IP address and add it to the headers
+getUserIPAddress().then((ipAddress) => {
+  const url =
+    "https://bing-news-search1.p.rapidapi.com/news?safeSearch=Off&textFormat=Raw";
+  const options = {
+    method: "GET",
+    headers: {
+      "content-type": "application/octet-stream",
+      "X-BingApis-SDK": "true",
+      "X-RapidAPI-Key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
+      "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
+      "X-MSEdge-ClientIP": ipAddress
+    }
+  };
+
+  fetch(url, options)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.value[1]);
+      const projectsContainer = document.getElementById("projects");
+
+      data.value.forEach((project) => {
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+          const options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            timeZoneName: "short"
+          };
+          return date.toLocaleDateString(undefined, options);
+        }
+        const fallbackImageUrl =
+          "https://plus.unsplash.com/premium_photo-1677456384043-d131d8db2a81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODIzNjY2NjU&ixlib=rb-4.0.3&q=80&w=400";
+
+        const thumbnailUrl =
+          project.image?.thumbnail?.contentUrl || fallbackImageUrl;
+
+        if (!project.image?.thumbnail.contentUrl) {
+          project.image.thumbnail.contentUrl = {
+            contentUrl:
+              "https://plus.unsplash.com/premium_photo-1677456384043-d131d8db2a81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODIzNjY2NjU&ixlib=rb-4.0.3&q=80&w=400"
+          };
+        }
+
+        const projectHtml = `
+        <a href="${
+          project.ampUrl
+        }" class="col-md-4 col-sm-6 mb-4" target="_blank" rel="noopener noreferrer">
+          <div class="card">
+            <img src="${thumbnailUrl}" class="card-img card-img-top" alt="">
+            <div class="card-body">
+              <h3 class="card-title fw-bold">${project.name}</h3>
+                   <div class="card-foot">
+            <p class="text-center fs-7">${project.description}</p>
+  <hr />
+  <small class="text-center">
+    <p class="card-text">Last Updated ${formatDate(project.datePublished)}</p>
+  </small>
+</div>
+            </div>
+       
+
+          </div>
+      `;
+        projectsContainer.insertAdjacentHTML("beforeend", projectHtml);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
