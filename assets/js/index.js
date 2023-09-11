@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     historyDiv.innerHTML = `<div class="row text-center">
     <div class="col-md-8 iconh col-sm-6 mb-4">
     <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="w-25 rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p></div>
-    <div class="card col-md-12 lisht mb-4 more-details text-center" id="lisht">
+    <div class="card col-md-12 bg-white lisht mb-4 more-details text-center" id="lisht">
       <div class="card-body">
         <h5 class="card-title fs-1">Weather Details</h5>
         <p>Last Updated: <span id="last-updated">${data.current.last_updated}</span></p>
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="card col-md-12 iconh mb-4">
       <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p>
     </div>
-    <div class="card col-md-12 lisht mb-4 more-details" id="lisht">
+    <div class="card col-md-12 bg-white lisht mb-4 more-details" id="lisht">
       <div class="card-body">
         <h5 class="card-title fs-1">Weather Details</h5>
         <p>Last Updated: <span id="last-updated">${data.current.last_updated}</span></p>
@@ -290,7 +290,7 @@ getUserIPAddress().then((ipAddress) => {
         <a href="${
           project.ampUrl
         }" class="col-md-4 col-sm-6 mb-4" target="_blank" rel="noopener noreferrer">
-          <div class="card">
+          <div class="card bg-white">
             <img src="${thumbnailUrl}" class="card-img card-img-top" alt="">
             <div class="card-body">
               <h3 class="card-title fw-bold">${project.name}</h3>
