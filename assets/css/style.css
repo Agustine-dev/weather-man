@@ -182,12 +182,15 @@ li {
   font-size: xx-large;
   transition: all 1.2s ease-out;
 }
+.iconh p {
+  color: black;
+}
 .iconh p:hover {
-  background: antiquewhite;
+  background: wheat;
   cursor: pointer;
   color: black;
   padding: 5px;
-  font-size: xx-large;
+  font-size: x-large;
   transition: all 1.2s ease-out;
 }
 
@@ -199,7 +202,7 @@ li {
 }
 .card:hover {
   background-color: crimson;
-  color: snow;
+  color: darkolivegreen;
   border: none;
   transition: all 0.67s ease-in;
 }
@@ -231,4 +234,10 @@ a {
     color:#b9332e ; /* */
     font-size: 72px;
   }
-  
+
+#search-input {
+    border-radius: 12px;
+    padding: 2px;
+    margin-left: -30px;
+    margin-right: 6px;
+}
