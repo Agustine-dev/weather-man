@@ -179,8 +179,8 @@ li {
   cursor: pointer;
   color: black;
   padding: 5px;
-  font-size: xx-large;
-  transition: all 1.2s ease-out;
+  font-size: x-large;
+  transition: all 0.6s ease-in;
 }
 .iconh p {
   color: black;
@@ -190,8 +190,7 @@ li {
   cursor: pointer;
   color: black;
   padding: 5px;
-  font-size: x-large;
-  transition: all 1.2s ease-out;
+  transition: all 0.6s ease-out;
 }
 
 #hhead {
@@ -201,7 +200,6 @@ li {
   background-color: transparent;
 }
 .card:hover {
-  background-color: crimson;
   color: darkolivegreen;
   border: none;
   transition: all 0.67s ease-in;
