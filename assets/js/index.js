@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const weatherOptions = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": process.env.weather_Key,
-      "X-RapidAPI-Host": process.env.weather_Host
+      "X-RapidAPI-Key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
+      "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
     }
   };
   
