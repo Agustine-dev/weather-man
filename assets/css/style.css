@@ -240,3 +240,23 @@ a {
     margin-left: -30px;
     margin-right: 6px;
 }
+
+div#timecard {
+  background: #2D2642;
+  height: 150px;
+  border-radius: 33px;
+}
+
+div#timezone {
+  background: #2D2642;
+  height: 150px;
+  border-radius: 33px;
+}
+
+.timecard.card-body, .timezone.card-body {
+    color: snow;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: center;
+}
