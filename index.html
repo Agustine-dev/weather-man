@@ -9,7 +9,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://img.icons8.com/3d-fluency/16/cloud.png">
     <link rel="icon" type="image/png" sizes="48x48" href="https://img.icons8.com/3d-fluency/48/cloud.png">
     <link rel="icon" type="image/png" sizes="120x120" href="https://img.icons8.com/3d-fluency/100/cloud.png">
-    <title>Weather | Time</title>
+    <title id="pageTitle">Weather</title>
+    <script>
+        var pageTitle = document.getElementById('pageTitle');
+        // Set the innerText of the title element
+        pageTitle.innerText = `Weather | ${new Date().toString()}`;
+    </script>
   </head>
   <!-- Google tag (gtag.js) -->
   <script
