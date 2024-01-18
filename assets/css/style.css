@@ -229,8 +229,9 @@ a {
   }
   
   .social-links a:hover {
-    color:#b9332e ; /* */
-    font-size: 72px;
+    color: black; /* */
+    font-size: 2rem;
+    transition: all 0.8s ease-in;
   }
 
 #search-input {
