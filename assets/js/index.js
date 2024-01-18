@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="w-25 rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p></div>
     <div class="card col-md-12 bg-white lisht mb-4 more-details text-center" id="lisht">
       <div class="card-body">
-        <h5 class="card-title fs-1">Weather Details</h5>
+        <h5 class="card-title fs-3">Current Weather Details</h5>
         <p>Last Updated: <span id="last-updated">${data.current.last_updated}</span></p>
         <p>Temperature: <span id="temp-c">${data.current.temp_c}</span> &deg;C / <span id="temp-f">${data.current.temp_f}</span> &deg;F</p>
         <p>Condition: <span id="condition">${data.current.condition.text}</span></p>
@@ -257,7 +257,6 @@ getUserIPAddress().then((ipAddress) => {
   fetch(url, options)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.value[1]);
       const projectsContainer = document.getElementById("projects");
 
       data.value.forEach((project) => {
