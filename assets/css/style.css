@@ -247,13 +247,13 @@ div#timecard {
   border-radius: 33px;
 }
 
-div#timezone {
+div#zoned {
   background: #2D2642;
   height: 150px;
   border-radius: 33px;
 }
 
-.timecard.card-body, .timezone.card-body {
+.timecard.card-body{
     color: snow;
     display: flex;
     flex-direction: column;
