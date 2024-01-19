@@ -330,13 +330,15 @@ async function fetchBloom() {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
+
     const newsCont = document.getElementById('news');
     const flexCont = document.createElement('div');
     const selectElement = document.getElementById('newCat');
     flexCont.classList.add('row', 'row-cols-auto');
+    let r = 'technology'
 
-
-      let r = 'technology'
+    for (let i = 0; i < data.modules.length; i++) {
+      const element = data.modules[i];
       if(element.id == r) {
         element.stories.forEach((stry)=> {
           const option = document.createElement('option');
@@ -366,6 +368,7 @@ async function fetchBloom() {
           newsCont.appendChild(flexCont);
         });
       }
+    }
     }
 
   catch (error) {
