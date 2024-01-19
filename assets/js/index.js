@@ -327,6 +327,10 @@ async function fetchBloom() {
       "Content-Type": "application/json"
     }
   };
+
+  const newsCont = document.getElementById('news');
+  const flexCont = document.createElement('div');
+  flexCont.classList.add('row', 'row-cols-auto');
   
   try {
     const response = await fetch(url, options);
