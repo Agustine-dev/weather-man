@@ -158,9 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   // Add a loading element
-  // const loadingDiv = document.createElement("div");
-  // loadingDiv.setAttribute("id", "loading");
-  // document.body.appendChild(loadingDiv);
+  const loadingDiv = document.createElement("div");
+  loadingDiv.setAttribute("id", "loading");
+  document.body.appendChild(loadingDiv);
   
   // Get user IP address
   fetch("https://api.ipify.org/?format=json")
