@@ -333,10 +333,9 @@ async function fetchBloom() {
     const newsCont = document.getElementById('news');
     const flexCont = document.createElement('div');
     flexCont.classList.add('row', 'row-cols-auto');
-    console.log("You are here", newsCont);
-    for (let i = 0; i < data.length; i++) {
+    console.log(data)
+    for (let i = 0; i < data.modules.length; i++) {
       const element = data[i];
-      console.log(element);
       let r = 'technology'
       if(element.id == r) {
         element.stories.forEach((stry)=> {
