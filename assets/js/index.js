@@ -323,13 +323,15 @@ async function fetchBloom() {
     method: 'GET',
     headers: {
       'X-RapidAPI-Key': 'c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40',
-      'X-RapidAPI-Host': 'bloomberg-market-and-financial-news.p.rapidapi.com'
+      'X-RapidAPI-Host': 'bloomberg-market-and-financial-news.p.rapidapi.com',
+      "Content-Type": "application/json"
     }
   };
   
   try {
     const response = await fetch(url, options);
     const data = await response.json();
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
       const element = data[i];    
       let r = 'technology'
@@ -356,7 +358,7 @@ async function fetchBloom() {
           })
           flexCont.appendChild(strCard)
           newsCont.appendChild(flexCont);
-        })
+        });
       }
     }
 
