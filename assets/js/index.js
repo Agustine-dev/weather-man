@@ -335,7 +335,8 @@ async function fetchBloom() {
     flexCont.classList.add('row', 'row-cols-auto');
     console.log(data)
     for (let i = 0; i < data.modules.length; i++) {
-      const element = data[i];
+      const element = data.modules[i];
+      console.log(element)
       let r = 'technology'
       if(element.id == r) {
         element.stories.forEach((stry)=> {
