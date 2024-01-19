@@ -327,17 +327,16 @@ async function fetchBloom() {
       "Content-Type": "application/json"
     }
   };
-
-  const newsCont = document.getElementById('news');
-  const flexCont = document.createElement('div');
-  flexCont.classList.add('row', 'row-cols-auto');
-  
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data);
+    const newsCont = document.getElementById('news');
+    const flexCont = document.createElement('div');
+    flexCont.classList.add('row', 'row-cols-auto');
+    console.log("You are here", newsCont);
     for (let i = 0; i < data.length; i++) {
-      const element = data[i];    
+      const element = data[i];
+      console.log(element);
       let r = 'technology'
       if(element.id == r) {
         element.stories.forEach((stry)=> {
