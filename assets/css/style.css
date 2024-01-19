@@ -110,10 +110,8 @@ form {
 }
 
 .lisht {
-  width: 50%important;
-  margin: 0;
-  padding: 33px;
-  background: transparent;
+  padding: 11px;
+  margin-right: 22px;
 }
 
 #video-background {
@@ -248,15 +246,61 @@ div#timecard {
 }
 
 div#zoned {
-  background: #2D2642;
+  background: #48eda9;
   height: 150px;
   border-radius: 33px;
+  color: #2D2642;
 }
 
-.timecard.card-body{
+div#timecard:hover {
+  background: #a106a1;
+  transition: all 1s ease-out;
+}
+.timecard{
     color: snow;
     display: flex;
     flex-direction: column;
     height: 150px;
     justify-content: center;
+}
+
+h1.rounded-3:hover {
+  background: linear-gradient(90deg, rgb(72, 112, 1),black);
+  box-shadow: 1px 2px 10px white;
+  transition: all 0.7s step-end;
+}
+
+.strCard {
+  background-image: url('../js/logo.png');
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  box-shadow:0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.56s ease-in-out; 
+}
+
+.strCard:hover {
+  background: teal;
+  color: white;
+  box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),0 11px 15px -7px rgba(0,0,0,0.2);
+  transition: all 0.6s ease-in-out;
+  background-size: 360px;
+}
+
+.fst-italic {
+  font-style: italic!important;
+  font-weight: 300;
+}
+
+ul.list-unstyled {
+  list-style: none;
+}
+
+li.auth {
+  font-weight: bolder;
+  margin: 12px 0 12px 0;
+}
+
+li.list-group-item {
+  text-decoration: none!important;
 }

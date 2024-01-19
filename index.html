@@ -43,8 +43,8 @@
   </div>
      <div class="row" id="current">
         <div class="col-md-6 mb-4">
-          <div class="card timezone">
-            <div class="card-body zoned">
+          <div class="card" id="zoned">
+            <div class="card-body timecard">
               <h5 class="card-title">Timezone</h5>
               <p class="card-text text-center" id="timezone"></p>
               <select id="timezone-select" class="d-none"></select>
@@ -75,16 +75,26 @@
     <h1 class="text-center fs-3 text-light" id="hhead">Hourly Data</h1>
     <div class="bg-transparent fs-10" id="hourly"></div>
   </div>
-  <div class="container m-3">
+  <div class="container m-3 d-none">
     <h3 class="text-center text-white m-3">FEATURED ARTICLES</h3>
     <div class="row" id="projects"></div>
   </div>
 </div>
 </div>
 
-<footer class="bg-inherit d-flex text-center flex-column justify-content-md-center">
+<hr />
+<section class="container container-fluid bg-transparent">
+  <h1 class="text-white border border-1 border-warning rounded-3 text-center w-100">
+    <select class="catSelect" id="newCat">
+      <option>Chuck Norris</option>
+    </select>
+  </h1>
+  <hr  />
+  <div id="news"></div>
+</section>
+<footer class="bg-secondary text-white d-flex text-center flex-column justify-content-md-center">
   <div class="col-md-12 mb-2 ">
-    <div class="col-md-12 bg-secondary text-white fw-bold mb-2 shadow">
+    <div class="col-md-12 text-black fw-bold mb-2 shadow">
       <a href="https://icons8.com/icon/RcBBZX2XlWJV/cloud" class="text-decoration-none text-white">All</a> Icons by <a href="https://icons8.com" class="text-decoration-none fs-3 text-info">Icons8</a>
     </div>
   </div>
@@ -98,6 +108,9 @@
     <a href="mailto:nagustinenyaanga@gmail.com">
       <i class="fas fa-envelope"></i>
     </a>
+  </div>
+  <div class="col-md-12">
+    <p>All Rights Reserved. <p id="year"></p></p>
   </div>
 </footer>
 
