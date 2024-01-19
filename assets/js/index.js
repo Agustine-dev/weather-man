@@ -368,7 +368,7 @@ async function fetchBloom() {
       }
     }
 
-  } catch (error) {
+  catch (error) {
     console.error(error);
   }
 };
