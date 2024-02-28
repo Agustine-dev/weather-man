@@ -1,110 +1,110 @@
 // Wait for the HTML document to be fully loaded before executing the code
 document.addEventListener("DOMContentLoaded", function () {
-    // Get the user's timezone
-    let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  
-    // Display the timezone in the first card and set the dropdown to the user's timezone
-    const timezoneElement = document.getElementById("timezone");
-    timezoneElement.textContent = timezone;
-    const timezoneSelect = document.getElementById("timezone-select");
-    const timezones = moment.tz.names();
-    for (let i = 0; i < timezones.length; i++) {
-      const option = document.createElement("option");
-      option.text = timezones[i];
-      option.value = timezones[i];
-      if (timezones[i] === timezone) {
-        option.selected = true;
-      }
-      timezoneSelect.add(option);
-    }
+  // Get the user's timezone
+  let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    var yr = document.getElementById('year');
-    let year = new Date().getFullYear();
-    yr.innerText = year
-  
-    // Update the current time every second and display it in the second card
-    console.log("Updating");
-    function updateTime() {
-      const now = new Date();
-      const timeElement = document.getElementById("time");
-      timeElement.textContent = now.toLocaleString(undefined, {
-        hour12: false,
-        timeZone: timezone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
+  // Display the timezone in the first card and set the dropdown to the user's timezone
+  const timezoneElement = document.getElementById("timezone");
+  timezoneElement.textContent = timezone;
+  const timezoneSelect = document.getElementById("timezone-select");
+  const timezones = moment.tz.names();
+  for (let i = 0; i < timezones.length; i++) {
+    const option = document.createElement("option");
+    option.text = timezones[i];
+    option.value = timezones[i];
+    if (timezones[i] === timezone) {
+      option.selected = true;
     }
-  
-    // Update the timezone variable and call updateTime whenever the user selects a new timezone from the dropdown
-    timezoneSelect.addEventListener("change", function () {
-      timezone = timezoneSelect.value;
-      updateTime();
-    });
-  
-    // Call updateTime initially to display the correct time
-    updateTime();
-    setInterval(updateTime, 1000);
-  });
-  
-  // Define constants for elements and options
-  const searchBtn = document.getElementById("search-btn");
-  const searchInput = document.getElementById("search-input");
-  const searchForm = document.querySelector("form");
-  const container = document.querySelector(".main");
-  const HourlyHead = document.getElementById("hhead");
-  const weatherOptions = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
-      "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
-    }
-  };
-  
-  // Add event listener for form submission
-  searchForm.addEventListener("submit", searchWeather);
-  
-  //hide class
-  // Search weather function
-  async function searchWeather(event) {
-    event.preventDefault();
-    try {
-      const input = searchInput.value;
-      HourlyHead.style.visibility = "visible";
-      const data = await fetch(
-        `https://weatherapi-com.p.rapidapi.com/current.json?q=${input}`,
-        weatherOptions
-      );
-      console.log(data);
-      const json = await data.json();
-      displayCurrentWeather(json);
-      const locationName = json.location.name;
-      const currentDate = new Date(json.location.localtime);
-      const year = currentDate.getFullYear();
-      const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-      const day = currentDate.getDate().toString().padStart(2, "0");
-      const history = await fetch(
-        `https://weatherapi-com.p.rapidapi.com/history.json?q=${locationName}&dt=${year}-${month}-${day}`,
-        weatherOptions
-      );
-      const historyJson = await history.json();
-      displayHourlyWeather(historyJson);
-    } catch (error) {
-      console.error(error);
-    }
+    timezoneSelect.add(option);
   }
-  
-  // Display current weather function
-  function displayCurrentWeather(data) {
-    const locationName = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
-    const weatherDiv = document.getElementById("weather");
-  
-    weatherDiv.innerHTML = `<p class="fs-5 m-3 text-center fw-bolder">${locationName}</p>`;
-    const historyDiv = document.getElementById("history");
-    historyDiv.innerHTML = `<div class="row text-center">
+
+  var yr = document.getElementById("year");
+  let year = new Date().getFullYear();
+  yr.innerText = year;
+
+  // Update the current time every second and display it in the second card
+  console.log("Updating");
+  function updateTime() {
+    const now = new Date();
+    const timeElement = document.getElementById("time");
+    timeElement.textContent = now.toLocaleString(undefined, {
+      hour12: false,
+      timeZone: timezone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  // Update the timezone variable and call updateTime whenever the user selects a new timezone from the dropdown
+  timezoneSelect.addEventListener("change", function () {
+    timezone = timezoneSelect.value;
+    updateTime();
+  });
+
+  // Call updateTime initially to display the correct time
+  updateTime();
+  setInterval(updateTime, 1000);
+});
+
+// Define constants for elements and options
+const searchBtn = document.getElementById("search-btn");
+const searchInput = document.getElementById("search-input");
+const searchForm = document.querySelector("form");
+const container = document.querySelector(".main");
+const HourlyHead = document.getElementById("hhead");
+const weatherOptions = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
+    "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
+  }
+};
+
+// Add event listener for form submission
+searchForm.addEventListener("submit", searchWeather);
+
+//hide class
+// Search weather function
+async function searchWeather(event) {
+  event.preventDefault();
+  try {
+    const input = searchInput.value;
+    HourlyHead.style.visibility = "visible";
+    const data = await fetch(
+      `https://weatherapi-com.p.rapidapi.com/current.json?q=${input}`,
+      weatherOptions
+    );
+    console.log(data);
+    const json = await data.json();
+    displayCurrentWeather(json);
+    const locationName = json.location.name;
+    const currentDate = new Date(json.location.localtime);
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = currentDate.getDate().toString().padStart(2, "0");
+    const history = await fetch(
+      `https://weatherapi-com.p.rapidapi.com/history.json?q=${locationName}&dt=${year}-${month}-${day}`,
+      weatherOptions
+    );
+    const historyJson = await history.json();
+    displayHourlyWeather(historyJson);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Display current weather function
+function displayCurrentWeather(data) {
+  const locationName = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
+  const weatherDiv = document.getElementById("weather");
+
+  weatherDiv.innerHTML = `<p class="fs-5 m-3 text-center fw-bolder">${locationName}</p>`;
+  const historyDiv = document.getElementById("history");
+  historyDiv.innerHTML = `<div class="row text-center">
     <div class="col-md-8 iconh col-sm-6 mb-4">
     <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="w-25 rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p></div>
     <div class="card col-md-12 bg-white lisht mb-4 more-details text-center" id="lisht">
@@ -126,65 +126,65 @@ document.addEventListener("DOMContentLoaded", function () {
         <button class="btn btn-primary mt-auto" id="mdet-btn">More Details</button>
       </div>
     </div>`;
-    // console.log(data);
-  }
-  
-  function displayHourlyWeather(data) {
-    const hourlyData = data.forecast.forecastday[0].hour;
-    const hourlyContainer = document.getElementById("hourly");
-    const hOne = document.createElement("h1");
-  
-    // hourlyContainer.classList.add("content");
-    const cardFlexContainer = document.createElement("div");
-    cardFlexContainer.classList.add("d-flex", "flex-row", "p-3", "overlay");
-    for (let i = 0; i < 24; i++) {
-      const hourCard = document.createElement("div");
-      hourCard.classList.add("card", "hour-card", "p-3", "text-light");
-      const hourTitle = document.createElement("h5");
-      hourTitle.classList.add("card-title");
-      hourTitle.textContent = i.toString().padStart(2, "0") + ":00";
-      const hourlyInfo = hourlyData[i];
-      const hourTemp = document.createElement("p");
-      hourTemp.classList.add("card-text");
-      hourTemp.innerHTML = `<img src="${hourlyInfo.condition.icon}" class="rounded-circle w-25 img"/>${hourlyInfo.condition.text}
+  // console.log(data);
+}
+
+function displayHourlyWeather(data) {
+  const hourlyData = data.forecast.forecastday[0].hour;
+  const hourlyContainer = document.getElementById("hourly");
+  const hOne = document.createElement("h1");
+
+  // hourlyContainer.classList.add("content");
+  const cardFlexContainer = document.createElement("div");
+  cardFlexContainer.classList.add("d-flex", "flex-row", "p-3", "overlay");
+  for (let i = 0; i < 24; i++) {
+    const hourCard = document.createElement("div");
+    hourCard.classList.add("card", "hour-card", "p-3", "text-light");
+    const hourTitle = document.createElement("h5");
+    hourTitle.classList.add("card-title");
+    hourTitle.textContent = i.toString().padStart(2, "0") + ":00";
+    const hourlyInfo = hourlyData[i];
+    const hourTemp = document.createElement("p");
+    hourTemp.classList.add("card-text");
+    hourTemp.innerHTML = `<img src="${hourlyInfo.condition.icon}" class="rounded-circle w-25 img"/>${hourlyInfo.condition.text}
   `;
-      hourCard.appendChild(hourTitle);
-      hourCard.appendChild(hourTemp);
-      cardFlexContainer.appendChild(hourCard);
-    }
-    hourlyContainer.appendChild(hOne);
-    hourlyContainer.appendChild(cardFlexContainer);
-    container.style.display = "block";
+    hourCard.appendChild(hourTitle);
+    hourCard.appendChild(hourTemp);
+    cardFlexContainer.appendChild(hourCard);
   }
-  
-  // Add a loading element
-  const loadingDiv = document.createElement("div");
-  loadingDiv.setAttribute("id", "loading");
-  document.body.appendChild(loadingDiv);
-  
-  // Get user IP address
-  fetch("https://api.ipify.org/?format=json")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data); // Check if IP address was fetched successfully
-      return fetch(
-        `https://weatherapi-com.p.rapidapi.com/ip.json?q=${data.ip}`,
-        weatherOptions
-      )
-        .then((response) => response.json())
-        .then((ipData) => {
-          // console.log(ipData); // Check if location was fetched successfully
-          const locationName = `${ipData.city}, ${ipData.region}, ${ipData.country_name}`;
-          return fetch(
-            `https://weatherapi-com.p.rapidapi.com/current.json?q=${ipData.region}`,
-            weatherOptions
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              const weatherDiv = document.getElementById("weather");
-              const loadingDiv = document.getElementById("loading");
-              loadingDiv.style.display = "none"; // Hide the loading element
-              weatherDiv.innerHTML = `<div class="row d-flex justify-content-center">
+  hourlyContainer.appendChild(hOne);
+  hourlyContainer.appendChild(cardFlexContainer);
+  container.style.display = "block";
+}
+
+// Add a loading element
+const loadingDiv = document.createElement("div");
+loadingDiv.setAttribute("id", "loading");
+document.body.appendChild(loadingDiv);
+
+// Get user IP address
+fetch("https://api.ipify.org/?format=json")
+  .then((response) => response.json())
+  .then((data) => {
+    // console.log(data); // Check if IP address was fetched successfully
+    return fetch(
+      `https://weatherapi-com.p.rapidapi.com/ip.json?q=${data.ip}`,
+      weatherOptions
+    )
+      .then((response) => response.json())
+      .then((ipData) => {
+        // console.log(ipData); // Check if location was fetched successfully
+        const locationName = `${ipData.city}, ${ipData.region}, ${ipData.country_name}`;
+        return fetch(
+          `https://weatherapi-com.p.rapidapi.com/current.json?q=${ipData.region}`,
+          weatherOptions
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const weatherDiv = document.getElementById("weather");
+            const loadingDiv = document.getElementById("loading");
+            loadingDiv.style.display = "none"; // Hide the loading element
+            weatherDiv.innerHTML = `<div class="row d-flex justify-content-center">
     <div class="card col-md-12 iconh mb-4">
       <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p>
     </div>
@@ -209,30 +209,29 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   </div>
   `;
-              document.addEventListener("DOMContentLoaded", function () {
-                //more details
-                const moreDetailsButton = document.getElementById("mdet-btn");
-                const secondCard = document.getElementById("lisht");
-  
-                moreDetailsButton.addEventListener("click", function () {
-                  secondCard.classList.toggle("more-details");
-                });
-              });
-            })
-            .then((timezonedata) => {
-              return fetch(
-                `https://weatherapi-com.p.rapidapi.com/timezone.json?q=${data.ip}`,
-                weatherOptions
-              )
-                .then((response) => response.json())
-                .then((data) => {
-                  console.log(data);
-                });
-            });
-        });
-    })
-    .catch((error) => console.error(error));
+            document.addEventListener("DOMContentLoaded", function () {
+              //more details
+              const moreDetailsButton = document.getElementById("mdet-btn");
+              const secondCard = document.getElementById("lisht");
 
+              moreDetailsButton.addEventListener("click", function () {
+                secondCard.classList.toggle("more-details");
+              });
+            });
+          })
+          .then((timezonedata) => {
+            return fetch(
+              `https://weatherapi-com.p.rapidapi.com/timezone.json?q=${data.ip}`,
+              weatherOptions
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+              });
+          });
+      });
+  })
+  .catch((error) => console.error(error));
 
 // Get user IP address
 function getUserIPAddress() {
@@ -316,14 +315,14 @@ getUserIPAddress().then((ipAddress) => {
     });
 });
 
-
 async function fetchBloom() {
-  const url = 'https://bloomberg-market-and-financial-news.p.rapidapi.com/news/list-by-region?id=africa-home-v3';
+  const url =
+    "https://bloomberg-market-and-financial-news.p.rapidapi.com/news/list-by-region?id=africa-home-v3";
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'X-RapidAPI-Key': 'c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40',
-      'X-RapidAPI-Host': 'bloomberg-market-and-financial-news.p.rapidapi.com',
+      "X-RapidAPI-Key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
+      "X-RapidAPI-Host": "bloomberg-market-and-financial-news.p.rapidapi.com",
       "Content-Type": "application/json"
     }
   };
@@ -331,98 +330,111 @@ async function fetchBloom() {
     const response = await fetch(url, options);
     const data = await response.json();
 
-    const newsCont = document.getElementById('news');
-    const flexCont = document.createElement('div');
-    const selectElement = document.getElementById('newCat');
-    flexCont.classList.add('row', 'row-cols-auto');
-    let r = 'technology'
+    const newsCont = document.getElementById("news");
+    const flexCont = document.createElement("div");
+    const selectElement = document.getElementById("newCat");
+    flexCont.classList.add("row");
+    let r = "technology";
 
     for (let i = 0; i < data.modules.length; i++) {
       const element = data.modules[i];
-      if(element.id == r) {
-        element.stories.forEach((stry)=> {
-          const option = document.createElement('option');
+      if (element.id == r) {
+        element.stories.forEach((stry) => {
+          const option = document.createElement("option");
           option.value = stry.id; // You can use a unique identifier as the value
-          option.textContent = stry.title || 'Untitled'; // Use the title or a default value
+          option.textContent = stry.title || "Untitled"; // Use the title or a default value
           selectElement.appendChild(option);
           const strCard = document.createElement("div");
-          strCard.classList.add("col-md-6", "strCard","border-info");
+          strCard.classList.add("col","card","col-md-6","col-sm-3","col-xl-1", "strCard", "border-info");
           strCard.innerHTML = `
           <div class="card-body">
-          <h2 class="card-title">${stry.abstract[1] ? stry.abstract[0] : stry.title.toString() }</h2>
-          <h4 class="fs-5 card-subtitle fst-italic mb-2">${stry.autoGeneratedSummary}</h4>
+          <h2 class="card-title">${
+            stry.abstract[1] ? stry.abstract[0] : stry.title.toString()
+          }</h2>
+          <h4 class="fs-5 card-subtitle fst-italic mb-2">${
+            stry.autoGeneratedSummary
+          }</h4>
           <div class="card-footer">
           <ul class="list-group list-group-flush list-unstyled bg-transparent">
-            <li class="list-group-item">Published ${new Date(stry.published*1000).toDateString()}</li>
+            <li class="list-group-item">Published ${new Date(
+              stry.published * 1000
+            ).toDateString()}</li>
             <hr />
-            <li class="list-group-item auth">Author<small>(s)</small>: ${stry.byline}</li>
+            <li class="list-group-item auth">Author<small>(s)</small>: ${
+              stry.byline
+            }</li>
             <li class="list-group-item"></li>
           </ul>
           </div>
           </div>
-          `
-          strCard.addEventListener('click', () => {
-            window.open(stry.longURL)
-          })
-          flexCont.appendChild(strCard)
+          `;
+          strCard.addEventListener("click", () => {
+            window.open(stry.longURL);
+          });
+          flexCont.appendChild(strCard);
           newsCont.appendChild(flexCont);
         });
       }
     }
-    }
-
-  catch (error) {
+  } catch (error) {
     console.error(error);
   }
-};
+}
 
 fetchBloom();
 
 async function dummyData() {
-  const url = 'assets/js/data.json';
+  const url = "assets/js/data.json";
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      "Content-Type": "application/json",
-
+      "Content-Type": "application/json"
     }
-  }
-  const newsCont = document.getElementById('news');
-  const flexCont = document.createElement('div');
-  flexCont.classList.add('row', 'row-cols-auto');
+  };
+  const newsCont = document.getElementById("news");
+  const flexCont = document.createElement("div");
+  flexCont.classList.add("row", "row-cols-auto");
 
   try {
-    const response = await fetch(url,options);
+    const response = await fetch(url, options);
     const data = await response.json();
-      for (let i = 0; i < data.length; i++) {
-        const element = data[i];    
-        let r = 'technology'
-        if(element.id == r) {
-          element.stories.forEach((stry)=> {
-            const strCard = document.createElement("div");
-            strCard.classList.add("card", "col-md-6", "strCard","border-info");
-            strCard.innerHTML = `
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      let r = "technology";
+      if (element.id == r) {
+        element.stories.forEach((stry) => {
+          const strCard = document.createElement("div");
+          strCard.classList.add("card", "col-md-6", "strCard", "border-info");
+          strCard.innerHTML = `
             <div class="card-body">
-            <h2 class="card-title">${stry.abstract[1] ? stry.abstract[0] : stry.title.toString() }</h2>
-            <h4 class="fs-5 card-subtitle fst-italic mb-2">${stry.autoGeneratedSummary}</h4>
+            <h2 class="card-title">${
+              stry.abstract[1] ? stry.abstract[0] : stry.title.toString()
+            }</h2>
+            <h4 class="fs-5 card-subtitle fst-italic mb-2">${
+              stry.autoGeneratedSummary
+            }</h4>
             <div class="card-footer">
             <ul class="list-group list-group-flush list-unstyled">
-              <li class="list-group-item">Published ${new Date(stry.published*1000).toDateString()}</li>
+              <li class="list-group-item">Published ${new Date(
+                stry.published * 1000
+              ).toDateString()}</li>
               <hr />
-              <li class="list-group-item auth">Author<small>(s)</small>: ${stry.byline}</li>
+              <li class="list-group-item auth">Author<small>(s)</small>: ${
+                stry.byline
+              }</li>
               <li class="list-group-item"></li>
             </ul>
             </div>
             </div>
-            `
-            strCard.addEventListener('click', () => {
-              window.open(stry.longURL)
-            })
-            flexCont.appendChild(strCard)
-            newsCont.appendChild(flexCont);
-          })
-        }
+            `;
+          strCard.addEventListener("click", () => {
+            window.open(stry.longURL);
+          });
+          flexCont.appendChild(strCard);
+          newsCont.appendChild(flexCont);
+        });
       }
+    }
   } catch (error) {
     console.error(error);
   }
