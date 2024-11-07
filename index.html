@@ -13,7 +13,7 @@
     <script>
         var pageTitle = document.getElementById('pageTitle');
         // Set the innerText of the title element
-        pageTitle.innerText = `Weather | ${new Date().toString()}`;
+        pageTitle.innerText = `AI-Weather | ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`;
     </script>
   </head>
   <!-- Google tag (gtag.js) -->
@@ -32,67 +32,68 @@
   </script>
 
   <body>
- <div class="container w-100 h-auto me-auto">
-  <div class="bg-transparent text-start border-none br-4 header">
-    <form>
-      <input type="text" id="search-input" value="" required autofocus placeholder="Enter Location Name" />
-      <button id="search-btn" class="btn btn-outline-success">
+  <div class="bg-sky-700 rounded-sm mt-0">
+    <form class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+      <input class="bg-white rounded-md" type="text" id="search-input" value="" required autofocus placeholder="Location" />
+      <button id="search-btn" class="bg-green-400 hover:text-white hover:bg-green-800 rounded rounded-md mx-4">
         Search
       </button>
     </form>
   </div>
-     <div class="row" id="current">
-        <div class="col-md-6 mb-4">
-          <div class="card" id="zoned">
-            <div class="card-body timecard">
-              <h5 class="card-title">Timezone</h5>
-              <p class="card-text text-center" id="timezone"></p>
-              <select id="timezone-select" class="d-none"></select>
-            </div>
-          </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4" id="current">
+    <!-- Timezone Card -->
+    <div class="bg-white rounded-lg shadow-lg border border-gray-300 shadow-yellow-900 hover:shadow-gray-900">
+      <div class="p-4 bg-yellow-400">
+        <h5 class="text-lg font-semibold text-center">Active Timezone</h5>
+        <p class="text-center mt-2" id="timezone"></p>
+        <select id="timezone-select" class="hidden"></select>
+      </div>
+    </div>
+  
+    <!-- Current Time Card -->
+    <div class="bg-white rounded-lg border border-gray-300 shadow-lg shadow-sky-900 hover:shadow-gray-900">
+      <div class="p-4 bg-sky-400 text-white">
+        <h5 class="text-lg font-semibold text-center">Current Time</h5>
+        <p class="text-center mt-2" id="time"></p>
+      </div>
+    </div>
+  </div>  
+  
+  <!-- More Weather Details -->
+  <div class="text-center p-4">
+    <p class="text-2xl font-bold my-2" id="location-name"></p>
+    <div class="flex flex-col md:flex-row justify-center items-center gap-6 mt-4">
+      <!-- Icon and Condition -->
+      <div class="text-center">
+        <img src="" alt="Weather Icon" id="weather-icon" class="w-20 mx-auto mb-2 rounded-lg">
+        <p id="weather-condition" class="text-lg font-semibold"></p>
+      </div>
+  
+      <!-- Temperature and Other Key Info -->
+      <div class="bg-green-400 hover:bg-green-800 border border-gray-900 shadow-xl rounded-lg p-6 w-full md:w-2/3">
+        <h3 class="text-xl font-semibold mb-4">Current Weather Details</h3>
+        <div class="grid grid-cols-2 gap-4 text-left">
+          <p>Last Updated: <span id="last-updated"></span></p>
+          <p>Temperature: <span id="temp-c"></span>°C / <span id="temp-f"></span>°F</p>
+          <p>Wind: <span id="wind-mph"></span> mph / <span id="wind-kph"></span> kph</p>
+          <p>Humidity: <span id="humidity"></span>%</p>
+          <p>Visibility: <span id="vis-km"></span> km / <span id="vis-miles"></span> miles</p>
+          <p>UV Index: <span id="uv"></span></p>
         </div>
-        <div class="col-md-6">
-          <div class="card" id="timecard">
-            <div class="card-body timecard">
-              <h5 class="card-title">Current Time</h5>
-              <p class="card-text text-center" id="time"></p>
-            </div>
-          </div>
-        </div>
-     </div>
-  <div class="bg-inherit fw-bolder text-center text-lg-center" id="weather"></div>
-
-  <div class="bg-inherit main fw-semi-bold text-center fs-10" id="whistory">
+        <button class="bg-sky-500 text-white px-4 py-2 w-full rounded rounded-lg mt-4" id="mdet-btn">More Details</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="" id="whistory">
     <div class="row" id="history-row">
       <!-- Cards will be added here -->
     </div>
   </div>
-  <div class="bg-inherit video-content" id="history"></div>
-  <video autoplay muted loop id="video-background">
-    <source src="https://player.vimeo.com/external/368208181.sd.mp4?s=eee5a62a8c5354795bc6cd922b840835b8944300&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
-  </video>
-  <div class="container">
-    <h1 class="text-center fs-3 text-light" id="hhead">Hourly Data</h1>
-    <div class="bg-transparent fs-10" id="hourly"></div>
-  </div>
-  <div class="container m-3 d-none">
-    <h3 class="text-center text-white m-3">FEATURED ARTICLES</h3>
-    <div class="row" id="projects"></div>
-  </div>
-</div>
-</div>
+ 
 
-<hr />
-<section class="container container-fluid bg-transparent">
-  <div id="news"></div>
-</section>
-<footer class="bg-secondary text-white d-flex text-center flex-column justify-content-md-center">
-  <div class="col-md-12 mb-2 ">
-    <div class="col-md-12 text-black fw-bold mb-2 shadow">
-      <a href="https://icons8.com/icon/RcBBZX2XlWJV/cloud" class="text-decoration-none text-white">All</a> Icons by <a href="https://icons8.com" class="text-decoration-none fs-3 text-info">Icons8</a>
-    </div>
-  </div>
-  <div class="col-md-12 social-links">
+<footer class="bg-sky-900 text-white text-center grid grid-cols-1">
+  <div class="social-links">
     <a href="https://twitter.com/___stino_____" target="_blank" rel="noopener">
       <i class="fab fa-twitter"></i>
     </a>
@@ -103,14 +104,15 @@
       <i class="fas fa-envelope"></i>
     </a>
   </div>
-  <div class="col-md-12">
+  <div>
     <p>All Rights Reserved. <p id="year"></p></p>
   </div>
 </footer>
 
     <script src="./assets/js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/lib.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.43/moment-timezone.min.js"></script>
   </body>
 </html>

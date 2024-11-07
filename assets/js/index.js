@@ -55,7 +55,6 @@ const searchBtn = document.getElementById("search-btn");
 const searchInput = document.getElementById("search-input");
 const searchForm = document.querySelector("form");
 const container = document.querySelector(".main");
-const HourlyHead = document.getElementById("hhead");
 const weatherOptions = {
   method: "GET",
   headers: {
@@ -73,7 +72,7 @@ async function searchWeather(event) {
   event.preventDefault();
   try {
     const input = searchInput.value;
-    HourlyHead.style.visibility = "visible";
+    // HourlyHead.style.visibility = "visible";
     const data = await fetch(
       `https://weatherapi-com.p.rapidapi.com/current.json?q=${input}`,
       weatherOptions
@@ -97,37 +96,6 @@ async function searchWeather(event) {
   }
 }
 
-// Display current weather function
-function displayCurrentWeather(data) {
-  const locationName = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
-  const weatherDiv = document.getElementById("weather");
-
-  weatherDiv.innerHTML = `<p class="fs-5 m-3 text-center fw-bolder">${locationName}</p>`;
-  const historyDiv = document.getElementById("history");
-  historyDiv.innerHTML = `<div class="row text-center">
-    <div class="col-md-8 iconh col-sm-6 mb-4">
-    <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="w-25 rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p></div>
-    <div class="card col-md-12 bg-white lisht mb-4 more-details text-center" id="lisht">
-      <div class="card-body">
-        <h5 class="card-title fs-3">Current Weather Details</h5>
-        <p>Last Updated: <span id="last-updated">${data.current.last_updated}</span></p>
-        <p>Temperature: <span id="temp-c">${data.current.temp_c}</span> &deg;C / <span id="temp-f">${data.current.temp_f}</span> &deg;F</p>
-        <p>Condition: <span id="condition">${data.current.condition.text}</span></p>
-        <p>Wind Speed: <span id="wind-mph">${data.current.wind_mph}</span> mph / <span id="wind-kph">${data.current.wind_kph}</span> kph</p>
-        <p>Wind Direction: <span id="wind-dir">${data.current.wind_dir}</span> (<span id="wind-degree">${data.current.wind_degree}</span> &deg;)</p>
-        <p>Pressure: <span id="pressure-mb"${data.current.pressure_mb}</span> mb / <span id="pressure-in">${data.current.pressure_in}</span> in</p>
-        <p>Precipitation: <span id="precip-mm">${data.current.precip_mm}</span> mm / <span id="precip-in">${data.current.precip_in}</span> in</p>
-        <p>Humidity: <span id="humidity">${data.current.humidity}</span>%</p>
-        <p>Cloud Cover: <span id="cloud">${data.current.cloud}</span>%</p>
-        <p>Feels Like: <span id="feelslike-c">${data.current.feelslike_c}</span> &deg;C / <span id="feelslike-f">${data.current.feelslike_f}</span> &deg;F</p>
-        <p>Visibility: <span id="vis-km">${data.current.vis_km}</span> km / <span id="vis-miles">${data.current.vis_miles}</span> miles</p>
-        <p>UV Index: <span id="uv">${data.current.uv}</span></p>
-        <p>Gust Speed: <span id="gust-mph">${data.current.gust_mph}</span> mph / <span id="gust-kph">${data.current.gust_kph}</span> kph</p>
-        <button class="btn btn-primary mt-auto" id="mdet-btn">More Details</button>
-      </div>
-    </div>`;
-  // console.log(data);
-}
 
 function displayHourlyWeather(data) {
   const hourlyData = data.forecast.forecastday[0].hour;
@@ -157,6 +125,32 @@ function displayHourlyWeather(data) {
   container.style.display = "block";
 }
 
+function displayCurrentWeather(data) {
+
+  console.log("This is the data to be displayed", data);
+  const weatherDiv = document.getElementById("weather");
+            const loadingDiv = document.getElementById("loading");
+            loadingDiv.style.display = "none"; // Hide the loading element
+  const locationName = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
+  const weatherIcon = data.current.condition.icon;
+  const conditionText = data.current.condition.text;
+
+  document.getElementById("location-name").textContent = locationName;
+  document.getElementById("weather-icon").src = weatherIcon;
+  document.getElementById("weather-condition").textContent = conditionText;
+  
+  document.getElementById("last-updated").textContent = data.current.last_updated;
+  document.getElementById("temp-c").textContent = data.current.temp_c;
+  document.getElementById("temp-f").textContent = data.current.temp_f;
+  document.getElementById("wind-mph").textContent = data.current.wind_mph;
+  document.getElementById("wind-kph").textContent = data.current.wind_kph;
+  document.getElementById("humidity").textContent = data.current.humidity;
+  document.getElementById("vis-km").textContent = data.current.vis_km;
+  document.getElementById("vis-miles").textContent = data.current.vis_miles;
+  document.getElementById("uv").textContent = data.current.uv;
+}
+
+
 // Add a loading element
 const loadingDiv = document.createElement("div");
 loadingDiv.setAttribute("id", "loading");
@@ -181,34 +175,8 @@ fetch("https://api.ipify.org/?format=json")
         )
           .then((response) => response.json())
           .then((data) => {
-            const weatherDiv = document.getElementById("weather");
-            const loadingDiv = document.getElementById("loading");
-            loadingDiv.style.display = "none"; // Hide the loading element
-            weatherDiv.innerHTML = `<div class="row d-flex justify-content-center">
-    <div class="card col-md-12 iconh mb-4">
-      <p class="fw-bold bg-inherit"><img src="${data.current.condition.icon}" class="rounded rounded-circle img" />${data.current.condition.text}: ${data.current.temp_c}°C</p>
-    </div>
-    <div class="card col-md-12 bg-white lisht me-4 mb-4 more-details" id="lisht">
-      <div class="card-body">
-        <h5 class="card-title fs-3">Current Weather Details</h5>
-        <p>Last Updated: <span id="last-updated">${data.current.last_updated}</span></p>
-        <p>Temperature: <span id="temp-c">${data.current.temp_c}</span> &deg;C / <span id="temp-f">${data.current.temp_f}</span> &deg;F</p>
-        <p>Condition: <span id="condition">${data.current.condition.text}</span></p>
-        <p>Wind Speed: <span id="wind-mph">${data.current.wind_mph}</span> mph / <span id="wind-kph">${data.current.wind_kph}</span> kph</p>
-        <p>Wind Direction: <span id="wind-dir">${data.current.wind_dir}</span> (<span id="wind-degree">${data.current.wind_degree}</span> &deg;)</p>
-        <p>Pressure: <span id="pressure-mb"${data.current.pressure_mb}</span> mb / <span id="pressure-in">${data.current.pressure_in}</span> in</p>
-        <p>Precipitation: <span id="precip-mm">${data.current.precip_mm}</span> mm / <span id="precip-in">${data.current.precip_in}</span> in</p>
-        <p>Humidity: <span id="humidity">${data.current.humidity}</span>%</p>
-        <p>Cloud Cover: <span id="cloud">${data.current.cloud}</span>%</p>
-        <p>Feels Like: <span id="feelslike-c">${data.current.feelslike_c}</span> &deg;C / <span id="feelslike-f">${data.current.feelslike_f}</span> &deg;F</p>
-        <p>Visibility: <span id="vis-km">${data.current.vis_km}</span> km / <span id="vis-miles">${data.current.vis_miles}</span> miles</p>
-        <p>UV Index: <span id="uv">${data.current.uv}</span></p>
-        <p>Gust Speed: <span id="gust-mph">${data.current.gust_mph}</span> mph / <span id="gust-kph">${data.current.gust_kph}</span> kph</p>
-        <button class="btn btn-danger mt-auto" id="mdet-btn">More Details</button>
-      </div>
-    </div>
-  </div>
-  `;
+            console.log("This is current weather", data)
+            displayCurrentWeather(data)
             document.addEventListener("DOMContentLoaded", function () {
               //more details
               const moreDetailsButton = document.getElementById("mdet-btn");
@@ -315,73 +283,7 @@ getUserIPAddress().then((ipAddress) => {
     });
 });
 
-async function fetchBloom() {
-  const url =
-    "https://bloomberg-market-and-financial-news.p.rapidapi.com/news/list-by-region?id=africa-home-v3";
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
-      "X-RapidAPI-Host": "bloomberg-market-and-financial-news.p.rapidapi.com",
-      "Content-Type": "application/json"
-    }
-  };
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
 
-    const newsCont = document.getElementById("news");
-    const flexCont = document.createElement("div");
-    const selectElement = document.getElementById("newCat");
-    flexCont.classList.add("row");
-    let r = "technology";
-
-    for (let i = 0; i < data.modules.length; i++) {
-      const element = data.modules[i];
-      if (element.id == r) {
-        element.stories.forEach((stry) => {
-          const option = document.createElement("option");
-          option.value = stry.id; // You can use a unique identifier as the value
-          option.textContent = stry.title || "Untitled"; // Use the title or a default value
-          selectElement.appendChild(option);
-          const strCard = document.createElement("div");
-          strCard.classList.add("col","card","col-md-6","col-sm-3","col-xl-1", "strCard", "border-info");
-          strCard.innerHTML = `
-          <div class="card-body">
-          <h2 class="card-title">${
-            stry.abstract[1] ? stry.abstract[0] : stry.title.toString()
-          }</h2>
-          <h4 class="fs-5 card-subtitle fst-italic mb-2">${
-            stry.autoGeneratedSummary
-          }</h4>
-          <div class="card-footer">
-          <ul class="list-group list-group-flush list-unstyled bg-transparent">
-            <li class="list-group-item">Published ${new Date(
-              stry.published * 1000
-            ).toDateString()}</li>
-            <hr />
-            <li class="list-group-item auth">Author<small>(s)</small>: ${
-              stry.byline
-            }</li>
-            <li class="list-group-item"></li>
-          </ul>
-          </div>
-          </div>
-          `;
-          strCard.addEventListener("click", () => {
-            window.open(stry.longURL);
-          });
-          flexCont.appendChild(strCard);
-          newsCont.appendChild(flexCont);
-        });
-      }
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-fetchBloom();
 
 async function dummyData() {
   const url = "assets/js/data.json";

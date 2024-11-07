@@ -1,6 +1,16 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: "Lato", serif;
@@ -40,30 +50,6 @@ body {
   }
 }
 
-form {
-  padding: 5px;
-  margin: 5px 10px;
-  display: flex;
-  align-items: center;
-  background: inherit;
-  justify-content: space-between;
-}
-
-#header {
-  width: 100%;
-  margin: 10px;
-  border-radius: 33px;
-}
-
-#weather {
-  display: contents;
-  align-items: center;
-  justify-content: space-around;
-  border: aliceblue 2px outset;
-  border-radius: 25px;
-  color: brown;
-}
-
 #hourly {
   display: flex;
   overflow-x: auto;
@@ -84,22 +70,8 @@ form {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.card-title {
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: center;
-}
 
-.rounded {
-  padding: 0.2rem;
-  width: 60px;
-  height: auto;
-}
 
-.card-text {
-  font-size: 0.9rem;
-  margin-top: 5px;
-}
 
 .iconh {
   width: 50% !important;
@@ -114,31 +86,6 @@ form {
   margin-right: 22px;
 }
 
-#video-background {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-.video-content {
-  position: relative;
-  z-index: 1;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card {
-  flex-basis: calc(50% - 1rem);
-}
-
-.card.more-details {
-  height: auto;
-}
 
 @media (max-width: 767px) {
   .card {
@@ -146,10 +93,7 @@ form {
   }
 }
 
-#weather.card {
-  border-radius: 33px 0;
-  margin: 5px;
-}
+
 
 li {
   text-decoration: overline 2px teal;
@@ -222,22 +166,15 @@ a {
   .social-links a {
     margin: 0 10px;
     font-size: 1.5rem;
-    color: blue;
+    color: black;
     transition: color 1.2s ease-in-out;
   }
   
   .social-links a:hover {
-    color: black; /* */
+    color: darkolivegreen; /* */
     font-size: 2rem;
-    transition: all 0.8s ease-in;
+    transition: all 0.4s ease-in;
   }
-
-#search-input {
-    border-radius: 12px;
-    padding: 2px;
-    margin-left: -30px;
-    margin-right: 6px;
-}
 
 div#timecard {
   background: #2D2642;
