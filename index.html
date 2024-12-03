@@ -70,28 +70,21 @@
       </div>
   
       <!-- Temperature and Other Key Info -->
-      <div class="bg-green-400 hover:bg-green-800 border border-gray-900 shadow-xl rounded-lg p-6 w-full md:w-2/3">
-        <h3 class="text-xl font-semibold mb-4">Current Weather Details</h3>
-        <div class="grid grid-cols-2 gap-4 text-left">
-          <p>Last Updated: <span id="last-updated"></span></p>
-          <p>Temperature: <span id="temp-c"></span>°C / <span id="temp-f"></span>°F</p>
-          <p>Wind: <span id="wind-mph"></span> mph / <span id="wind-kph"></span> kph</p>
-          <p>Humidity: <span id="humidity"></span>%</p>
-          <p>Visibility: <span id="vis-km"></span> km / <span id="vis-miles"></span> miles</p>
-          <p>UV Index: <span id="uv"></span></p>
+      <div class="bg-yellow-400 hover:bg-sky-500 delay-100 transition-colors ease-out hover:text-white border border-gray-900 shadow-xl rounded-lg p-6 w-full md:w-2/3">
+        <h3 class="text-xl font-semibold mb-4 underline">Current Weather Details</h3>
+        <div class="grid grid-cols-2 gap-4 text-start">
+          <p>Temperature: <span id="temp-c" class="font-semibold"></span>°C / <span id="temp-f" class="font-semibold"></span>°F</p>
+          <p>Wind: <span id="wind-mph" class="font-semibold"></span> mph / <span id="wind-kph"></span> kph</p>
+          <p>Humidity: <span id="humidity" class="font-semibold"></span>%</p>
+          <p>Visibility: <span id="vis-km" class="font-semibold"></span> km / <span id="vis-miles"></span> miles</p>
+          <p>UV Index: <span id="uv" class="font-semibold"></span></p>
         </div>
-        <button class="bg-sky-500 text-white px-4 py-2 w-full rounded rounded-lg mt-4" id="mdet-btn">More Details</button>
       </div>
     </div>
   </div>
-  
-  <div class="" id="whistory">
-    <div class="row" id="history-row">
-      <!-- Cards will be added here -->
-    </div>
-  </div>
- 
 
+  <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4" id="news">
+  </div>
 <footer class="bg-sky-900 text-white text-center grid grid-cols-1">
   <div class="social-links">
     <a href="https://twitter.com/___stino_____" target="_blank" rel="noopener">

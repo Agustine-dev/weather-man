@@ -45,10 +45,144 @@ document.addEventListener("DOMContentLoaded", function () {
     updateTime();
   });
 
+
+  // Clean and filter news data
+function cleanNewsData(newsData) {
+  const recent = new Date();
+  recent.setDate(recent.getDate() - 1);
+
+  // Helper function to parse published date strings
+  function parsePublishedDate(dateStr) {
+    const match = dateStr.match(/(\d+)\s+(\w+)/);
+    if (!match) return null;
+
+    const value = parseInt(match[1], 10);
+    const unit = match[2].toLowerCase();
+
+    const date = new Date();
+    if (unit.includes("day")) date.setDate(date.getDate() - value);
+    if (unit.includes("minute")) date.setMinutes(date.getMinutes() - value);
+    if (unit.includes("hour")) date.setHours(date.getHours() - value);
+
+    return date;
+  }
+
+  // Filter news articles
+  const filteredData = newsData
+    .filter((article) => {
+      const publishedDate = parsePublishedDate(article.publisedAt);
+      return publishedDate && publishedDate >= recent && article.imgUrl;
+    })
+    .reduce((uniqueArticles, currentArticle) => {
+      const isDuplicate = uniqueArticles.some(
+        (article) => article.title === currentArticle.title
+      );
+      if (!isDuplicate) uniqueArticles.push(currentArticle);
+      return uniqueArticles;
+    }, []);
+
+  return filteredData;
+}
+
+// Example usage
+async function fetchAndCleanNews() {
+  const url = "https://kenyan-news-api.p.rapidapi.com/news/English";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "c6b1760691msh3fd00140bb8715fp1c9172jsn1de1c9e00d40",
+      "x-rapidapi-host": "kenyan-news-api.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+
+    const cleanedNews = cleanNewsData(result);
+    return cleanedNews;
+  } catch (error) {
+    console.error("Error fetching news:", error);
+  }
+}
+const CACHE_KEY = "newsData";
+const CACHE_EXPIRATION_KEY = "newsCacheExpiration";
+
+async function fetchAndCacheNews() {
+  const now = new Date().getTime();
+  const cachedData = localStorage.getItem(CACHE_KEY);
+  const cacheExpiration = localStorage.getItem(CACHE_EXPIRATION_KEY);
+
+  // Check if cache exists and is still valid
+  if (cachedData && cacheExpiration && now < parseInt(cacheExpiration)) {
+    console.log("Using cached news data");
+    return Promise.resolve(JSON.parse(cachedData));
+  }
+
+  // Otherwise, fetch data from API
+  try {
+    const data_1 = await fetchAndCleanNews();
+    console.log("Fetching new news data");
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data_1)); // Save data
+    localStorage.setItem(
+      CACHE_EXPIRATION_KEY,
+      now + 1200000 // Cache for 20 minutes
+    );
+    return data_1;
+  } catch (error) {
+    console.error("Error fetching news data", error);
+    throw error;
+  }
+}
+
+// Use the cached or fetched news data
+fetchAndCacheNews()
+  .then((data) => {
+    const newsContainer = document.getElementById("news");
+
+    data.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "max-w-sm bg-white rounded-lg shadow-md hover:bg-yellow-400 overflow-hidden";
+
+      const image = document.createElement("img");
+      image.src = item.imgUrl;
+      image.alt = item.title;
+      image.className = "w-full h-48 object-cover";
+
+      const content = document.createElement("div");
+      content.className = "p-4";
+
+      const title = document.createElement("h2");
+      title.className = "text-lg font-semibold text-gray-800";
+      title.textContent = item.title;
+
+      const metadata = document.createElement("p");
+      metadata.className = "text-sm text-gray-600 mt-2";
+      metadata.textContent = `Published: ${item.publisedAt.trim()} | Author: ${item.author}`;
+
+      const link = document.createElement("a");
+      link.href = item.url;
+      link.target = "_blank";
+      link.className =
+        "inline-block mt-4 px-4 py-2 text-sm text-gray-900 bg-sky-500 rounded hover:bg-blue-700";
+      link.textContent = "Read More";
+
+      content.appendChild(title);
+      content.appendChild(metadata);
+      content.appendChild(link);
+
+      card.appendChild(image);
+      card.appendChild(content);
+
+      newsContainer.appendChild(card);
+    });
+  })
+  .catch((error) => console.error("Something crazy occurred!", error));
+
+
   // Call updateTime initially to display the correct time
   updateTime();
   setInterval(updateTime, 1000);
-});
 
 // Define constants for elements and options
 const searchBtn = document.getElementById("search-btn");
@@ -77,7 +211,6 @@ async function searchWeather(event) {
       `https://weatherapi-com.p.rapidapi.com/current.json?q=${input}`,
       weatherOptions
     );
-    console.log(data);
     const json = await data.json();
     displayCurrentWeather(json);
     const locationName = json.location.name;
@@ -97,40 +230,12 @@ async function searchWeather(event) {
 }
 
 
-function displayHourlyWeather(data) {
-  const hourlyData = data.forecast.forecastday[0].hour;
-  const hourlyContainer = document.getElementById("hourly");
-  const hOne = document.createElement("h1");
 
-  // hourlyContainer.classList.add("content");
-  const cardFlexContainer = document.createElement("div");
-  cardFlexContainer.classList.add("d-flex", "flex-row", "p-3", "overlay");
-  for (let i = 0; i < 24; i++) {
-    const hourCard = document.createElement("div");
-    hourCard.classList.add("card", "hour-card", "p-3", "text-light");
-    const hourTitle = document.createElement("h5");
-    hourTitle.classList.add("card-title");
-    hourTitle.textContent = i.toString().padStart(2, "0") + ":00";
-    const hourlyInfo = hourlyData[i];
-    const hourTemp = document.createElement("p");
-    hourTemp.classList.add("card-text");
-    hourTemp.innerHTML = `<img src="${hourlyInfo.condition.icon}" class="rounded-circle w-25 img"/>${hourlyInfo.condition.text}
-  `;
-    hourCard.appendChild(hourTitle);
-    hourCard.appendChild(hourTemp);
-    cardFlexContainer.appendChild(hourCard);
-  }
-  hourlyContainer.appendChild(hOne);
-  hourlyContainer.appendChild(cardFlexContainer);
-  container.style.display = "block";
-}
 
 function displayCurrentWeather(data) {
-
-  console.log("This is the data to be displayed", data);
   const weatherDiv = document.getElementById("weather");
-            const loadingDiv = document.getElementById("loading");
-            loadingDiv.style.display = "none"; // Hide the loading element
+  const loadingDiv = document.getElementById("loading");
+  loadingDiv.style.display = "none"; // Hide the loading element
   const locationName = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
   const weatherIcon = data.current.condition.icon;
   const conditionText = data.current.condition.text;
@@ -138,8 +243,6 @@ function displayCurrentWeather(data) {
   document.getElementById("location-name").textContent = locationName;
   document.getElementById("weather-icon").src = weatherIcon;
   document.getElementById("weather-condition").textContent = conditionText;
-  
-  document.getElementById("last-updated").textContent = data.current.last_updated;
   document.getElementById("temp-c").textContent = data.current.temp_c;
   document.getElementById("temp-f").textContent = data.current.temp_f;
   document.getElementById("wind-mph").textContent = data.current.wind_mph;
@@ -175,7 +278,6 @@ fetch("https://api.ipify.org/?format=json")
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log("This is current weather", data)
             displayCurrentWeather(data)
             document.addEventListener("DOMContentLoaded", function () {
               //more details
@@ -256,9 +358,8 @@ getUserIPAddress().then((ipAddress) => {
         }
 
         const projectHtml = `
-        <a href="${
-          project.ampUrl
-        }" class="col-md-4 col-sm-6 mb-4 bg-info text-black" target="_blank" rel="noopener noreferrer">
+        <a href="${project.ampUrl
+          }" class="col-md-4 col-sm-6 mb-4 bg-info text-black" target="_blank" rel="noopener noreferrer">
           <div class="card bg-white">
             <img src="${thumbnailUrl}" class="card-img card-img-top" alt="">
             <div class="card-body">
@@ -281,6 +382,8 @@ getUserIPAddress().then((ipAddress) => {
     .catch((error) => {
       console.error(error);
     });
+});
+
 });
 
 
@@ -309,21 +412,18 @@ async function dummyData() {
           strCard.classList.add("card", "col-md-6", "strCard", "border-info");
           strCard.innerHTML = `
             <div class="card-body">
-            <h2 class="card-title">${
-              stry.abstract[1] ? stry.abstract[0] : stry.title.toString()
+            <h2 class="card-title">${stry.abstract[1] ? stry.abstract[0] : stry.title.toString()
             }</h2>
-            <h4 class="fs-5 card-subtitle fst-italic mb-2">${
-              stry.autoGeneratedSummary
+            <h4 class="fs-5 card-subtitle fst-italic mb-2">${stry.autoGeneratedSummary
             }</h4>
             <div class="card-footer">
             <ul class="list-group list-group-flush list-unstyled">
               <li class="list-group-item">Published ${new Date(
-                stry.published * 1000
-              ).toDateString()}</li>
+              stry.published * 1000
+            ).toDateString()}</li>
               <hr />
-              <li class="list-group-item auth">Author<small>(s)</small>: ${
-                stry.byline
-              }</li>
+              <li class="list-group-item auth">Author<small>(s)</small>: ${stry.byline
+            }</li>
               <li class="list-group-item"></li>
             </ul>
             </div>

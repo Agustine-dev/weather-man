@@ -1,1 +1,0 @@
-# weather-ft-blog-app
